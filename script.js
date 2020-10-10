@@ -36,7 +36,6 @@ generateBtn.addEventListener("click", writePassword);
 
 // Creating the function to generate password/questions on click event.
 function generatePassword() {
-  event.preventDefault();
   var hasPasswordLength = false;
   var lower_case = "abcdefghijklmnopqrstuvwxyz";
   var upper_case = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
