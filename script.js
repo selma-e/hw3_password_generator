@@ -34,7 +34,7 @@ generateBtn.addEventListener("click", writePassword);
 
 //////////////////////////////////////////////////////////////////////
 
-// Creating the function to generate password on click event
+// Creating the function to generate password/questions on click event.
 function generatePassword() {
   var hasPasswordLength = false;
   var lower_case = "abcdefghijklmnopqrstuvwxyz";
@@ -47,7 +47,6 @@ function generatePassword() {
   var final_password = "";
 
   // Checking to make sure the character length is not outside of range, that it is not cancelled, and that it is an integer.
-
   while (!hasPasswordLength) {
     password_length = prompt("What password length would you like? You must choose a password length between 8-128 characters.");
     parsed_password_length = parseInt(password_length);
@@ -55,7 +54,7 @@ function generatePassword() {
       alert("Password Length: " + parsed_password_length + " characters");
       hasPasswordLength = true;
     } else if (isNaN(password_length)) {
-      alert("The answer you provided is not an integer.");
+      alert("The entry is not an integer.");
     } else if (parsed_password_length > 128) {
       alert("Please pick a number less than or equal to 128.");
     } else if (parsed_password_length < 8) {
@@ -65,11 +64,13 @@ function generatePassword() {
     }
   }
 
+  // Electing our confirm variables.
   var confirm_lower_case = confirm("Do you want the password to contain lowercase letters?");
   var confirm_upper_case = confirm("Do you want the password to contain uppercase letters?");
   var confirm_special_characters = confirm("Do you want the password to contain special characters?");
   var confirm_numbers = confirm("Do you want the password to contain numbers?");
 
+  // Making sure we prevent the user from not picking any password criteria and looping them back if they did not.
   while (confirm_lower_case === false && confirm_upper_case === false && confirm_special_characters === false && confirm_numbers === false) {
     alert("Please pick at least one password criteria.");
     confirm_lower_case = confirm("Do you want the password to contain lowercase letters?");
@@ -78,24 +79,25 @@ function generatePassword() {
     confirm_numbers = confirm("Do you want the password to contain numbers?");
   }
 
-  if (confirm_lower_case) {
+  // A series of if statements to concatenate the user password criteria decisions to a pool string.
+  if (confirm_lower_case === true) {
     pool += lower_case;
   }
-  if (confirm_upper_case) {
+  if (confirm_upper_case === true) {
     pool += upper_case;
   }
-  if (confirm_special_characters) {
+  if (confirm_special_characters === true) {
     pool += special_char;
   }
-  if (confirm_numbers) {
+  if (confirm_numbers === true) {
     pool += integers;
   }
 
-
-  // Creating a master pool string that will randomize a charAt selection 
+  // Creating a total pool string that will randomize and round down. And include a charAt selection.
   for (i = 0; i < password_length; i++) {
     var totalPool = Math.floor(Math.random() * pool.length);
     final_password += pool.charAt(totalPool);
   }
+  // Returns the final password into the box, without this it would state undefined.
   return final_password
 }
